@@ -1,1 +1,2 @@
-print("Dundie Entry Point ................")
+def main():
+    print("Dundie Entry Point ................")

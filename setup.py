@@ -1,4 +1,3 @@
-# setup tools [vem com o python]
 from setuptools import setup, find_packages
 
 setup(
@@ -7,6 +6,11 @@ setup(
     description="Main reward points system at Dunder Mifflin Inc.",
     author="RLSP",
     packages=find_packages(),
+    entry_points={
+        "console_scripts": [
+            "dundie = dundie.__main__:main"
+        ]
+    },
 )
 
 # pyproject

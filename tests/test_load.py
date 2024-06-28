@@ -6,6 +6,5 @@ from .constants import PEOPLE_FILE
 @pytest.mark.high
 def test_load():
     """Test Dundie/core.load() function"""
-
     assert len(load(PEOPLE_FILE)) == 100
     assert load(PEOPLE_FILE)[0][0:3] == 'Eve'

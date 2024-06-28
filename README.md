@@ -1,5 +1,7 @@
 # Project Dundie Rewards [EN]
 
+[![CI](https://github.com/rlatorraca/python_dundie_rewards/actions/workflows/main.yml/badge.svg)](https://github.com/rlatorraca/python_dundie_rewards/actions/workflows/main.yml)
+
 Points Rewards System (Dunder Miffin Company)
 
 We were hired by Dunder Mifflin, a large paper manufacturer, to develop a rewards system for their employees.
@@ -15,6 +17,9 @@ The current employee data will be provided in a file that can be in .csv or .jso
 ===============================================================================================
 
 # Projet Dundie Rewards [FR]
+
+
+[![CI](https://github.com/rlatorraca/python_dundie_rewards/actions/workflows/main.yml/badge.svg)](https://github.com/rlatorraca/python_dundie_rewards/actions/workflows/main.yml)
 
 Nous avons été engagés par Dunder Mifflin, un grand fabricant de papier, pour développer un système de récompenses pour leurs employés.
 

@@ -46,3 +46,9 @@ jobs:
           seconds_between_github_reads: 0.25
           seconds_between_github_writes: 2.0
           json_thousands_separator:  
+
+
+permissions:
+  checks: write
+  contents: read
+  pull-requests: write

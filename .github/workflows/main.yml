@@ -25,4 +25,10 @@ jobs:
       - name: Install Project
         run: pip install '.[test]'
       - name: Run tests
-        run: pytest -vv tests integration
+        run:  make testci
+      - name: publish junit results
+        uses: EnricoMi/publish-unit-tests-result-action@v1
+        if: always()
+        with:
+          files: test-results.xml
+          check_name: Test Result Dundier Rewards (Pyhon ${{matrix.python-version}})

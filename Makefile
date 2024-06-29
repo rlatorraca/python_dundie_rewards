@@ -1,7 +1,7 @@
 #Makefile
 
 # Avoid create extra files (used as automization for a python app)
-.PHONY: install virtualenv ipython clean test watch
+.PHONY: install virtualenv ipython clean test testci watch
 
 # @ => don´t show command on the screen
 install:
@@ -18,7 +18,7 @@ test:
 	@.venv/bin/pytest -vv -s
 
 testci:
-	@.venv/bin/pytest -v --junitxml=test-results.xml
+	@.venv/bin/pytest -vv --junitxml=test-result.xml
 
 watch:
 # @.venv/bin/ptw --  -vv -s  tests/ integration/

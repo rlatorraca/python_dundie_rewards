@@ -25,7 +25,7 @@ jobs:
       - name: Install Project
         run: pip install '.[test]'
       - name: Run Lint[style errors]
-        run: pflak8
+        run: pflake8
 
   tests:
     needs: lint

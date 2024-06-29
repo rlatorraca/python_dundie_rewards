@@ -1,6 +1,7 @@
 import pytest
-from subprocess import check_output, CalledProcessError # For Running Linux commands
+from subprocess import check_output, CalledProcessError  # For Running Linux commands
 from .constants import PEOPLE_FILE
+
 
 @pytest.mark.integration
 @pytest.mark.medium
@@ -9,6 +10,7 @@ def test_load_positive_call_load_command():
     output = check_output(['dundie', 'load', PEOPLE_FILE]).decode('utf-8').split('\n')
 
     assert len(output) == 101
+
 
 @pytest.mark.integration
 @pytest.mark.medium

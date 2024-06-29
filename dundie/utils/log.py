@@ -16,6 +16,7 @@ fmt = logging.Formatter(
     'line:%(lineno)d file:%(filename)s: %(message)s'
 )
 
+
 def get_logger(log_file="dundie.log"):
     """Return a CUSTOM logger"""
 
@@ -38,11 +39,10 @@ def get_logger(log_file="dundie.log"):
 
     fh.setLevel(LOG_LEVEL)
 
-
-    #ch.setFormatter(fmt)
+    # ch.setFormatter(fmt)
     fh.setFormatter(fmt)
 
     # ===>  DESTINO
-    #log.addHandler(ch)
+    # log.addHandler(ch)
     log.addHandler(fh)
     return log

@@ -6,6 +6,7 @@ log = get_logger()
 
 lines = []
 
+
 def load(filepath):
     """ Data loading function to database
 
@@ -18,7 +19,7 @@ def load(filepath):
     """
     try:
         with open(filepath, 'r') as file_:
-            first_line = file_.readline().strip()
+            first_line = file_.readline().strip() # noqa
             for line in file_:
                 stripped_line = line.strip()
                 lines.append(stripped_line)

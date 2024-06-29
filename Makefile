@@ -14,6 +14,9 @@ virtualenv:
 ipython:
 	@.venv/bin/ipython
 
+lint:
+	@.venv/bin/pflake8
+
 test:
 	@.venv/bin/pytest -vv -s
 

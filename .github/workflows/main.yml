@@ -32,3 +32,17 @@ jobs:
         with:
           files: test-result.xml
           check_name: Test Result Dundier Rewards (Pyhon ${{matrix.python-version}})
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_retries: 10
+          comment_mode: always
+          fail_on: test failures
+          time_unit: seconds
+          ignore_runs: false
+          hide_comments: all but latest
+          job_summary: true
+          compare_to_earlier_commit: true
+          pull_request_build: merge
+          check_run_annotations: all tests, skipped tests
+          seconds_between_github_reads: 0.25
+          seconds_between_github_writes: 2.0
+          json_thousands_separator:  

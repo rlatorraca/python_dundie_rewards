@@ -27,7 +27,10 @@ jobs:
         run: pip install '.[test]'
       - name: Run Lint[style errors]
         run: pflake8
-
+      - name: Check for importing style
+        run: isort --profile=black --check --diff dundie tests integration
+      - name: Check auto format errors
+        run: black --check --diff dundie tests integration
   tests:
     needs: lint
     strategy:

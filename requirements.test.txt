@@ -3,3 +3,5 @@ pytest
 # Code Quality
 flake8
 pyproject-flake8
+black  # automatic lint
+isort  # manager imports

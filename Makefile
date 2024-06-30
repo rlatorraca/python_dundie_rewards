@@ -1,7 +1,7 @@
 #Makefile
 
 # Avoid create extra files (used as automization for a python app)
-.PHONY: install virtualenv ipython clean test testci watch
+.PHONY: install virtualenv ipython lint clean test testci watch
 
 # @ => don´t show command on the screen
 install:

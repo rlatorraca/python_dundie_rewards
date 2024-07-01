@@ -28,3 +28,4 @@ def test_load_negative_call_load_command_with_wrong_parameters(wrong_command):
     out = cmd.invoke(main, wrong_command, PEOPLE_FILE)
     assert out.exit_code != 0
     assert f"No such command '{wrong_command}'." in out.output
+

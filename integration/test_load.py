@@ -5,7 +5,6 @@ from dundie.cli import load, main
 
 from .constants import PEOPLE_FILE
 
-
 cmd = CliRunner()
 
 
@@ -20,8 +19,7 @@ def test_load_positive_call_load_command():
 @pytest.mark.integration
 @pytest.mark.medium
 @pytest.mark.parametrize(
-    "wrong_command",
-    ["loady", "open", "read", "fetch", "retrieve", "access", "ingest", "initialize", "unpack"]
+    "wrong_command", ["loady", "open", "read", "fetch", "retrieve", "access", "ingest", "initialize", "unpack"]
 )
 def test_load_negative_call_load_command_with_wrong_parameters(wrong_command):
     """Test command load into terminal"""

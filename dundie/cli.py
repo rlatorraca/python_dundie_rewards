@@ -35,9 +35,15 @@ def load(filepath):
     - Load database
 
     """
+
+    table = Table(title="Dundie Mifflin Reward - Associates")
+    headers = ["name", "department", "job title", "email"]
+    for header in headers:
+        table.add_column(header, style="magenta", justify="center")
+
     result = core.load(filepath)
-    header = ["name", "department", "job title", "email"]
     for person in result:
-        print("-" * 50)
-        for key, value in zip(header, person.split(",")):
-            print(f"[red]{key}[/]: {value.strip()}")
+        table.add_row(*[field.strip() for field in person.split(",")])
+
+    console = Console()
+    console.print(table)

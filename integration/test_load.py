@@ -9,9 +9,9 @@ from .constants import PEOPLE_FILE
 @pytest.mark.medium
 def test_load_positive_call_load_command():
     """Test command load into terminal"""
-    output = check_output(["dundie", "load", PEOPLE_FILE]).decode("utf-8").split("\n")
+    output = check_output(["dundie", "load", PEOPLE_FILE]).decode("utf-8")
 
-    assert len(output) == 101
+    assert 'Dundie Mifflin Reward - Associates' in output
 
 
 @pytest.mark.integration

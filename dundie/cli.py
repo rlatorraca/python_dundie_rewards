@@ -1,26 +1,48 @@
-import argparse
+import pkg_resources
+import rich_click as click
+from rich.console import Console
+from rich.table import Table
 
-from dundie.core import load  # noqa
+from dundie import core
+
+click.rich_click.USE_RICH_MARKUP = True
+click.rich_click.USE_MARKDOWN = True
+click.rich_click.SHOW_ARGUMENTS = True
+click.rich_click.GROUP_ARGUMENTS_OPTIONS = True
+click.rich_click.SHOW_METAVARS_COLUMNS = True
+click.rich_click.APPEND_METAVARS_HELP = True
 
 
+@click.group()
+@click.version_option(pkg_resources.get_distribution("dundie").version)
 def main():
-    parser = argparse.ArgumentParser(
-        description="Dunder Mifflin Rewards CLI", epilog="a simple command-line interface for rewards management"
-    )
-    parser.add_argument(
-        "subcommand",
-        type=str,
-        help="Action to execute",
-        choices=("load", "show", "send"),
-        default=help,
-    )
-    parser.add_argument("filepath", type=str, help="Path for loading file", default=None)
+    """Dundier Mifflin Rewards System
 
-    args = parser.parse_args()  # Catch arguments typed from command line
+    That is the system that controls Dundier Mifflin rewards
 
-    try:
-        # Call globals load / show / send function using globals attribute -> args.subcommand
-        # Passing (args.filepath) typed from command line
-        print(*globals()[args.subcommand](args.filepath), sep="\n", end="")
-    except KeyError:
-        print("Invalid 'subcommand' argument")
+    """
+
+
+@main.command()
+@click.argument("filepath", type=click.Path(exists=True))
+def load(filepath):
+    """Load file from database
+
+    ## Features
+    - Validate data
+    - Parse file
+    - Load database
+
+    """
+
+    table = Table(title="Dundie Mifflin Reward - Associates")
+    headers = ["name", "department", "job title", "email"]
+    for header in headers:
+        table.add_column(header, style="magenta", justify="center")
+
+    result = core.load(filepath)
+    for person in result:
+        table.add_row(*[field.strip() for field in person.split(",")])
+
+    console = Console()
+    console.print(table)

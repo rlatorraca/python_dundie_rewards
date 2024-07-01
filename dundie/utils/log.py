@@ -1,5 +1,5 @@
-import os
 import logging
+import os
 from logging import handlers
 
 # logging => é um objeto UNICO no app chamado ROOT LOOGER
@@ -11,10 +11,8 @@ LOG_LEVEL = os.getenv("LOG_LEVEL", "WARNING").upper()
 log = logging.Logger("Dundie" + __name__)
 
 # ===> FORMATACAO
-fmt = logging.Formatter(
-    '%(asctime)s %(name)s [%(levelname)s] '
-    'line:%(lineno)d file:%(filename)s: %(message)s'
-)
+fmt = logging.Formatter("%(asctime)s %(name)s [%(levelname)s] " "line:%(lineno)d file:%(filename)s: %(message)s")
+
 
 def get_logger(log_file="dundie.log"):
     """Return a CUSTOM logger"""
@@ -29,20 +27,14 @@ def get_logger(log_file="dundie.log"):
     # logging.handlers.RotatingFileHandler(filename, mode='a', maxBytes=0, backupCount=0,
     #                                      encoding=None, delay=False, errors=None)
     # 10**6 = 1MB
-    fh = handlers.RotatingFileHandler(
-        log_file,
-        mode='a',
-        maxBytes=30000,
-        backupCount=10
-    )
+    fh = handlers.RotatingFileHandler(log_file, mode="a", maxBytes=30000, backupCount=10)
 
     fh.setLevel(LOG_LEVEL)
 
-
-    #ch.setFormatter(fmt)
+    # ch.setFormatter(fmt)
     fh.setFormatter(fmt)
 
     # ===>  DESTINO
-    #log.addHandler(ch)
+    # log.addHandler(ch)
     log.addHandler(fh)
     return log

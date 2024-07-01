@@ -1,7 +1,7 @@
 #Makefile
 
 # Avoid create extra files (used as automization for a python app)
-.PHONY: install virtualenv ipython clean test testci watch
+.PHONY: install virtualenv ipython lint fmt-check fmt-apply test testci watch clean
 
 # @ => don´t show command on the screen
 install:
@@ -13,6 +13,17 @@ virtualenv:
 
 ipython:
 	@.venv/bin/ipython
+
+lint:
+	@.venv/bin/pflake8
+
+fmt-check:
+	@.venv/bin/isort --check --diff dundie tests integration
+	@.venv/bin/black --check --diff dundie tests integration
+
+fmt-apply:
+	@.venv/bin/isort dundie tests integration
+	@.venv/bin/black dundie tests integration
 
 test:
 	@.venv/bin/pytest -vv -s

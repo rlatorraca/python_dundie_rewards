@@ -6,8 +6,9 @@ log = get_logger()
 
 lines = []
 
+
 def load(filepath):
-    """ Data loading function to database
+    """Data loading function to database
 
     >>> len(load('assets/people.csv'))
     100
@@ -17,8 +18,8 @@ def load(filepath):
 
     """
     try:
-        with open(filepath, 'r') as file_:
-            first_line = file_.readline().strip()
+        with open(filepath, "r") as file_:
+            first_line = file_.readline().strip()  # noqa
             for line in file_:
                 stripped_line = line.strip()
                 lines.append(stripped_line)

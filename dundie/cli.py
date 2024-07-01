@@ -1,10 +1,11 @@
 import argparse
-from dundie.core import load
+
+from dundie.core import load  # noqa
+
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Dunder Mifflin Rewards CLI",
-        epilog="a simple command-line interface for rewards management"
+        description="Dunder Mifflin Rewards CLI", epilog="a simple command-line interface for rewards management"
     )
     parser.add_argument(
         "subcommand",
@@ -13,15 +14,9 @@ def main():
         choices=("load", "show", "send"),
         default=help,
     )
+    parser.add_argument("filepath", type=str, help="Path for loading file", default=None)
 
-    parser.add_argument(
-        "filepath",
-        type=str,
-        help="Path for loading file",
-        default=None
-    )
-
-    args = parser.parse_args() # Catch arguments typed from command line
+    args = parser.parse_args()  # Catch arguments typed from command line
 
     try:
         # Call globals load / show / send function using globals attribute -> args.subcommand

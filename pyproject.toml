@@ -5,3 +5,26 @@ testpaths = [
     "tests",
     "integration",
 ]
+
+[tool.flake8]
+exclude = [
+    ".venv",
+    "build"
+]
+max-line-length = 119
+# entend-ignore = "W293"
+
+[tool.black]
+line-length = 119
+target-version = ["py36", "py37"]
+exclude = '''
+/(
+    \.eggs
+  | \.git
+  | \.venv
+  | _build
+  | build
+  | dist
+  | migrations
+)/
+'''

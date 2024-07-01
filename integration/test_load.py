@@ -5,6 +5,7 @@ from dundie.cli import load, main
 
 from .constants import PEOPLE_FILE
 
+
 cmd = CliRunner()
 
 

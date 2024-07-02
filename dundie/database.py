@@ -1,7 +1,6 @@
 import json
-from datetime import datetime
 
-from dundie.settings import DATABASE_PATH, EMAIL_FROM
+from dundie.settings import DATABASE_PATH
 
 EMPTY_DB = {"people": {}, "balance": {}, "movements": {}, "users": {}}
 

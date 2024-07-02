@@ -17,7 +17,7 @@ def check_valid_email(email_address):
 
 def send_email(from_, to_, subject, text):
     # Guard Clause
-    if not isinstance(to_, list): # Check if to_ is a list instead of a string
+    if not isinstance(to_, list):  # Check if to_ is a list instead of a string
         to_ = [to_]
 
     server = smtplib.SMTP(host=SMTP_HOST, port=SMTP_PORT, timeout=SMTP_TIMEOUT)

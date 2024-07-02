@@ -23,6 +23,7 @@
         "joe@doe.com": {
             "password": "",
             "is_admin": false
+
         }
     }
 }

@@ -21,7 +21,7 @@
     },
     "user": {
         "joe@doe.com": {
-            "password": "sdjfbsdjhfbsjhd",
+            "password": "",
             "is_admin": false
         }
     }

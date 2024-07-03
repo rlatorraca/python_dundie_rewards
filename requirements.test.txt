@@ -1,4 +1,6 @@
 pytest
+pytest-forked  # All tests are become isolated
+pytest-xdist
 
 # Code Quality
 flake8

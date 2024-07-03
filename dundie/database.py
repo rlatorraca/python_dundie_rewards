@@ -1,6 +1,6 @@
 import json
-
 from datetime import datetime
+
 from dundie.settings import DATABASE_PATH, EMAIL_FROM
 from dundie.utils.email import check_valid_email, send_email
 from dundie.utils.user import generate_random_simple_password
@@ -67,11 +67,5 @@ def set_initial_balance(db, pk, person):
 
 def add_movement(db, pk, value, actor="system"):
     movements = db["movement"].setdefault(pk, [])
-    movements.append(
-        {
-            "date": datetime.now().isoformat(),
-            "actor": actor,
-            "value": value
-        }
-    )
+    movements.append({"date": datetime.now().isoformat(), "actor": actor, "value": value})
     db["balance"][pk] = sum([item["value"] for item in movements])

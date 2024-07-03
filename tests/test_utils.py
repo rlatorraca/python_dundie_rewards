@@ -31,5 +31,5 @@ def test_positive_generate_simple_password():
     passwords = []
     for _ in range(100):
         passwords.append(generate_random_simple_password(12))
-    print(passwords)
+    # print(passwords)
     assert len(set(passwords)) == 100

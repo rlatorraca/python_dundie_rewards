@@ -1,7 +1,7 @@
 """ Core module """
 from csv import reader
 from dundie.utils.log import get_logger
-from dundie.database import connect, add_person, add_movement, commit
+from dundie.database import connect, add_person, commit
 
 log = get_logger()
 

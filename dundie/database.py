@@ -48,7 +48,6 @@ def add_person(db, pk, data):
         set_initial_balance(db, pk, person)
         password = set_initial_password(db, pk)
         send_email(EMAIL_FROM, pk, "Your dundie password has been", password)
-        print(password)
         # TODO: Encrypt and send only a link, not a password
     return person, created
 

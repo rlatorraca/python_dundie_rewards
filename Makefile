@@ -26,10 +26,11 @@ fmt-apply:
 	@.venv/bin/black dundie tests integration
 
 test:
-	@.venv/bin/pytest -vv -s --forked
+# @.venv/bin/pytest -vv -s --forked
+	@.venv/bin/pytest -s --forked
 
 testci:
-	@.venv/bin/pytest -vv --junitxml=test-result.xml
+	@.venv/bin/pytest -vv --forked --junitxml=test-result.xml
 
 watch:
 # @.venv/bin/ptw --  -vv -s  tests/ integration/

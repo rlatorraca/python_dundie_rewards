@@ -19,14 +19,12 @@ def send_email(from_, to_, subject, text):
     # Guard Clause
     if not isinstance(to_, list):  # Check if to_ is a list instead of a string
         to_ = [to_]
-
-    server = smtplib.SMTP(host=SMTP_HOST, port=SMTP_PORT, timeout=SMTP_TIMEOUT)
     try:
-        with server as email_server:
+        with smtplib.SMTP(host=SMTP_HOST, port=SMTP_PORT, timeout=SMTP_TIMEOUT) as server:
             message = MIMEText(text)
             message["Subject"] = subject
             message["From"] = from_
             message["To"] = ",".join(to_)  # List of email split by ","
-            email_server.sendmail(from_, to_, message.as_string())
+            server.sendmail(from_, to_, message.as_string())
     except Exception:
         log.error("Dundie cannot send email to %s", to_)

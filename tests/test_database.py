@@ -1,6 +1,6 @@
 import pytest
 
-from dundie.database import EMPTY_DB, connect, commit, add_person
+from dundie.database import EMPTY_DB, add_person, commit, connect
 
 
 @pytest.mark.unit
@@ -14,11 +14,7 @@ def test_database_empty_or_schema_db_exists():
 @pytest.mark.high
 def test_commit_to_databases():
     db = connect()
-    data = {
-                "name": "Jose da Silva",
-                "role": "Salesman",
-                "dept": "Sales"
-            }
+    data = {"name": "Jose da Silva", "role": "Salesman", "dept": "Sales"}
     db["people"]["josesilva@dundie.com"] = data
     commit(db)
 
@@ -30,11 +26,7 @@ def test_commit_to_databases():
 @pytest.mark.high
 def test_add_person_for_the_first_time():
     pk = "josesilva@dundie.com"
-    data = {
-                "name": "Jose da Silva",
-                "role": "Salesman",
-                "dept": "Sales"
-            }
+    data = {"name": "Jose da Silva", "role": "Salesman", "dept": "Sales"}
 
     db = connect()
     _, created = add_person(db, pk, data)

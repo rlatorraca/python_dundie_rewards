@@ -162,5 +162,5 @@ cython_debug/
 #.idea/
 
 *.log.*
-
+assets/database.json
 

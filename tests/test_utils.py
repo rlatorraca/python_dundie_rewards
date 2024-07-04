@@ -18,7 +18,6 @@ def test_positive_check_valid_email(email_address):
 def test_negative_check_valid_email(email_address):
     """Check if email address is valid"""
     assert check_valid_email(email_address) is False
-    assert check_valid_email(email_address) is False
 
 
 @pytest.mark.unit

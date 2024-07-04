@@ -27,7 +27,7 @@ def get_logger(log_file="dundie.log"):
     # logging.handlers.RotatingFileHandler(filename, mode='a', maxBytes=0, backupCount=0,
     #                                      encoding=None, delay=False, errors=None)
     # 10**6 = 1MB
-    fh = handlers.RotatingFileHandler(log_file, mode="a", maxBytes=30000, backupCount=10)
+    fh = handlers.RotatingFileHandler(log_file, mode="a", maxBytes=300000, backupCount=10)
 
     fh.setLevel(LOG_LEVEL)
 

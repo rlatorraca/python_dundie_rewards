@@ -11,5 +11,13 @@ pyproject-flake8
 black  # automatic lint
 isort  # manager imports
 
+# User DOCs
+mkdocs
+
 # Install project as editable
 -e .
+
+
+# Build project
+wheel
+twine  # isntall into testpypi / pypi

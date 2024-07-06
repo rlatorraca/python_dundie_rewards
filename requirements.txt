@@ -1,4 +1,4 @@
-click
-rich
-rich_click
+click       # Line-command interfaces
+rich        # line-command color formating
+rich_click      # rich extension (better output)
 setuptools  # pkg_resources

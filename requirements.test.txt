@@ -9,3 +9,14 @@ flake8
 pyproject-flake8
 black  # automatic lint
 isort  # manager imports
+
+
+
+# -> DOCUMENTATION
+# flake8-docstrings       #  Lint for documentation (Code Documentation - )
+# CONTRIBUTING.md         #  Contributors  Documentation (Root of the project)
+# mkdocs    #  User Documentation (dynaconf.com | fastapi.com  )
+#               - add in requirements.dev.txt
+#               - $mkdocs new .
+#               - $mkdocs serve (for running)
+#               - $mkdocs build --clean

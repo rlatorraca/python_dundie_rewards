@@ -25,7 +25,7 @@ def read_requirements(path):
 
 
 setup(
-    name="rlsp-dundie",
+    name="dundie",
     version="0.1.1",  # x(major), y(minor), z(patch/bugs)
     description="Main reward points system at Dunder Mifflin Inc.",
     long_description=read("README.md"),

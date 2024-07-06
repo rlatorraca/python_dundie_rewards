@@ -1,0 +1,7 @@
+include tests/assets/*.csv
+
+# include
+# include-recursive tests/
+# exclude
+# exclude-recursive tests/
+# graft   -> raspa/pega todos os arquivos (python ou nao)

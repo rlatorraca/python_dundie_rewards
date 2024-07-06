@@ -16,3 +16,8 @@ mkdocs
 
 # Install project as editable
 -e .
+
+
+# Build project
+wheel
+twine  # isntall into testpypi / pypi

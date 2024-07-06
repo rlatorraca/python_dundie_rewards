@@ -1,12 +1,16 @@
 #Makefile
 
 # Avoid create extra files (used as automization for a python app)
-.PHONY: install virtualenv ipython lint fmt-check fmt-apply test testci watch clean
+.PHONY: install uninstall virtualenv ipython lint fmt-check fmt-apply test testci watch docs \
+	docs-serve clean build twine-upload
 
 # @ => don´t show command on the screen
 install:
 	@echo "Installind Dundie into Dev Environment"
 	@.venv/bin/python -m pip install -e '.[dev]'
+
+uninstall:
+	@.venv/bin/python -m pip uninstall dundie
 
 virtualenv:
 	@.venv/bin/python -m pip -m venv .venv
@@ -36,6 +40,21 @@ watch:
 # @.venv/bin/ptw --  -vv -s  tests/ integration/
 	@ls **/*.py | entr pytest --forked
 
+docs:
+	@mkdocs build --clean
+
+docs-serve:
+	@mkdocs serve
+
+build:
+	@python setup.py sdist bdist_wheel
+
+publish-testpypi:
+	@twine upload --repository testpypi dist/*
+
+publish-pypi:
+	@twine upload dist/*
+
 clean:            ## Clean unused/temporary files.
 	@find ./ -name '*.pyc' -exec rm -f {} \;
 	@find ./ -name '__pycache__' -exec rm -rf {} \;
@@ -49,5 +68,4 @@ clean:            ## Clean unused/temporary files.
 	@rm -rf *.egg-info
 	@rm -rf htmlcov
 	@rm -rf .tox/
-	@rm -rf docs/_buildclean:
-	@fin
+	@rm -rf docs/_build

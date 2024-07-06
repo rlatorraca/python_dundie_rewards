@@ -44,7 +44,6 @@ setup(
         "test": read_requirements("requirements.test.txt"),
         "dev": read_requirements("requirements.dev.txt"),
     }
-
 )
 
 # pyproject

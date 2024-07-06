@@ -32,7 +32,7 @@ setup(
     long_description_content_type="text/markdown",
     author="RLSP",
     python_requires=">=3.9",
-    packages=find_packages(exclude=["integration"]) ,
+    packages=find_packages(exclude=["integration"]),
     include_package_data=True,
     entry_points={
         "console_scripts": [

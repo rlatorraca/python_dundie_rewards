@@ -1,3 +1,4 @@
+from abc import ABC
 from dataclasses import dataclass
 from decimal import Decimal
 from datetime import datetime
@@ -7,8 +8,13 @@ from dundie.utils.email import check_valid_email
 class InvalidEmailError(Exception):
     ...
 
+
+class Serializable(ABC):
+     def dict(self):
+          return vars(self)
+
 @dataclass
-class Person:
+class Person(Serializable):
     pk: str
     name: str
     dept: str
@@ -22,13 +28,19 @@ class Person:
          return f"{self.name} -  {self.dept} -  {self.role}"
 
 @dataclass
-class Balance:
+class Balance(Serializable):
     person: Person
     value: Decimal
 
+    def dict(self):
+         return {
+              "person": self.pk,
+              "balance": str(self.value)
+         }
+
 
 @dataclass
-class Movement:
+class Movement(Serializable):
     person: Person
     date: datetime
     actor: str

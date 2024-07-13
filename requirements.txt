@@ -2,3 +2,4 @@ click       # Line-command interfaces
 rich        # line-command color formating
 rich_click      # rich extension (better output)
 setuptools  # pkg_resources
+pydantic    # Serialization/Deserialization library

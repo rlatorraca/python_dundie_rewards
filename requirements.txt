@@ -3,3 +3,4 @@ rich        # line-command color formating
 rich_click      # rich extension (better output)
 setuptools  # pkg_resources
 pydantic    # Serialization/Deserialization library
+sqlmodel    # library for interacting with SQL databases from Python cod

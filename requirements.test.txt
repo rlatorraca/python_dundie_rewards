@@ -10,6 +10,8 @@ pyproject-flake8
 black  # automatic lint
 isort  # manager imports
 
+mypy
+types-setuptools
 
 
 # -> DOCUMENTATION

@@ -1,4 +1,3 @@
-# import json
 import json
 
 import pkg_resources
@@ -39,7 +38,7 @@ def load(filepath):
     """
 
     table = Table(title="Dundie Mifflin Reward - Associates")
-    headers = ["name", "department", "job title", "created", "email"]
+    headers = ["name", "email", "role", "dept", "created"]
     for header in headers:
         table.add_column(header, style="magenta", justify="center")
 
@@ -62,12 +61,12 @@ def show(output, **query):
         with open(output, "w") as output_file:
             output_file.write(json.dumps(result))
 
-    if not result:
+    if len(result) == 0:
         print("Nothing to show")
 
     table = Table(title="Dunder Mifflin Report")
     for key in result[0]:
-        table.add_column(key.title(), style="magenta")
+         table.add_column(key.title().replace("_", " "), style="magenta")
 
     for person in result:
         table.add_row(*[str(value) for value in person.values()])

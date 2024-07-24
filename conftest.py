@@ -1,5 +1,7 @@
 import pytest
 from unittest.mock import patch
+from sqlmodel import create_engine
+from dundie import models
 
 MARKER = """\
 unit : Mark unit tests
@@ -27,8 +29,17 @@ def go_to_tmpdir(request):  # injeção de dependencias
 def setup_testing_database(request):
     """For each test, create a database file on tmpdir
     force database.py to use that filepath.
-    """
+
     tmpdir = request.getfixturevalue("tmpdir")
     test_db = str(tmpdir.join("database.test.json"))
     with patch("dundie.database.DATABASE_PATH", test_db):
+        yield
+
+    """
+
+    tmpdir = request.getfixturevalue("tmpdir")
+    test_db = str(tmpdir.join("database.test.db"))
+    engine = create_engine(f"sqlite:///{test_db}")
+    models.SQLModel.metadata.create_all(bind=engine)
+    with patch("dundie.database.engine", engine):
         yield

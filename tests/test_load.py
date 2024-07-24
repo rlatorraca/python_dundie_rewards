@@ -1,8 +1,6 @@
 import pytest
 
 from dundie.core import load
-from dundie.database import EMPTY_DB, ORM, connect
-
 from .constants import PEOPLE_FILE
 
 
@@ -17,14 +15,6 @@ def test_load_positive_total_100_people(request):
 @pytest.mark.high
 def test_load_positive_first_name_like_Zachary(request):
     """Test Dundie/core.load() function"""
+
     assert load(PEOPLE_FILE)[0]["name"] == "Zachary Bowman"
 
-
-@pytest.mark.unit
-def test_db_schema():
-    load(PEOPLE_FILE)
-    db = connect()
-    # assert db.keys() == EMPTY_DB.keys()
-
-    db_keys = {ORM.get_table_name(model) for model in db}
-    assert db_keys == EMPTY_DB.keys()

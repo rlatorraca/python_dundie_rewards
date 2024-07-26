@@ -12,7 +12,7 @@ from dundie.utils.user import generate_random_simple_password
 
 
 class InvalidEmailError(Exception):
-    ...
+    """Raised when a email address is invalid"""
 
 
 # @dataclass

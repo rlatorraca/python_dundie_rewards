@@ -1,5 +1,6 @@
 import pytest
 from sqlmodel import Session, select
+
 from dundie.database import get_session
 from dundie.models import InvalidEmailError, Person
 from dundie.utils.db import add_movement, add_person

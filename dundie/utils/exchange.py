@@ -1,8 +1,10 @@
-import httpx
 from decimal import Decimal
-from typing import List, Dict
-from dundie.settings import API_BASE_URL
+from typing import Dict, List
+
+import httpx
 from pydantic import BaseModel, Field
+
+from dundie.settings import API_BASE_URL
 
 
 class UsdRate(BaseModel):
@@ -17,7 +19,7 @@ def get_rates(currencies: List[str]) -> Dict[str, UsdRate]:
     return_data = {}
     for currency in currencies:
         if currency == "USD":
-            return_data[currency] = UsdRate(high=Decimal('1.0'))
+            return_data[currency] = UsdRate(high=Decimal("1.0"))
         else:
             response = httpx.get(API_BASE_URL.format(currency=currency))
             if response.status_code == 200:
@@ -25,5 +27,5 @@ def get_rates(currencies: List[str]) -> Dict[str, UsdRate]:
                 data["high"] = Decimal(data["high"])
                 return_data[currency] = UsdRate(**data)
             else:
-                return_data[currency] = UsdRate(name="API/ERROR", high=Decimal('0.0'))
+                return_data[currency] = UsdRate(name="API/ERROR", high=Decimal("0.0"))
     return return_data

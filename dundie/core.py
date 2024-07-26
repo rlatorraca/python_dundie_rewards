@@ -77,9 +77,7 @@ def read(**query):
 
     with get_session() as session:
         # getll all currencies ["BRL", "USD", "EUR", "CAD"]
-        currencies = session.exec(
-                select(Person.currency).distinct(Person.currency)
-            )
+        currencies = session.exec(select(Person.currency).distinct(Person.currency))
         rates = get_rates(currencies)
 
         results = session.exec(sql)

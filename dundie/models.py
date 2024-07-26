@@ -11,7 +11,8 @@ from dundie.utils.email import check_valid_email
 from dundie.utils.user import generate_random_simple_password
 
 
-class InvalidEmailError(Exception): ...
+class InvalidEmailError(Exception):
+    ...
 
 
 # @dataclass

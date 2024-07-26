@@ -6,6 +6,7 @@ from dundie.models import InvalidEmailError, Person
 from dundie.utils.db import add_movement, add_person
 
 
+
 @pytest.mark.unit
 @pytest.mark.high
 def test_ensure_database_is_test():

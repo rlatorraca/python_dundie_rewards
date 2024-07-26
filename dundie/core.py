@@ -113,3 +113,4 @@ def add(value: int, **query: Query):
             instance = session.exec(select(Person).where(Person.email == person["email"])).first()
             add_movement(session, instance, value, user)
         session.commit()
+

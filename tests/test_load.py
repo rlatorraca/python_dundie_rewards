@@ -16,5 +16,4 @@ def test_load_positive_total_100_people(request):
 @pytest.mark.high
 def test_load_positive_first_name_like_Zachary(request):
     """Test Dundie/core.load() function"""
-
     assert load(PEOPLE_FILE)[0]["name"] == "Zachary Bowman"

@@ -29,6 +29,7 @@ def get_logger(log_file="dundie.log"):
     # 10**6 = 1MB
     fh = handlers.RotatingFileHandler(log_file, mode="a", maxBytes=3000000, backupCount=10)
 
+
     fh.setLevel(LOG_LEVEL)
 
     # ch.setFormatter(fmt)

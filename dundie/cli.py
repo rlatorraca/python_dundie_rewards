@@ -66,11 +66,13 @@ def show(output, **query):
 
     table = Table(title="Dunder Mifflin Report")
     for key in result[0]:
+
         table.add_column(key.title().replace("_", " "), style="magenta")
 
     for person in result:
         person["value"] = f"{person['value']:.2f}"
         person["balance"] = f"{person['balance']:.2f}"
+
         table.add_row(*[str(value) for value in person.values()])
 
     console = Console()

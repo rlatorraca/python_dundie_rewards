@@ -63,5 +63,6 @@ def test_add_balance_for_person():
     add(-30, email="wtaylor@hotmail.com")
 
     modified = read(email="wtaylor@hotmail.com")
+
     for index, person in enumerate(modified):
         assert person["balance"] == original[index]["balance"] - 30

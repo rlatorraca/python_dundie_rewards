@@ -8,7 +8,6 @@ from dundie.utils.db import add_person
 from .constants import PEOPLE_FILE
 
 
-
 @pytest.mark.unit
 @pytest.mark.high
 def test_read_with_query():

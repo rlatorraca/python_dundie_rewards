@@ -114,4 +114,3 @@ def add(value: int, **query: Query):
             if instance is not None:
                 add_movement(session, instance, value, user)
         session.commit()
-

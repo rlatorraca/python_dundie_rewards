@@ -1,5 +1,4 @@
 from sqlmodel import Session, create_engine
-
 from dundie import models  # IMPORTANT: This will create all CLASS on database
 from dundie.settings import SQL_CONN_STRING
 

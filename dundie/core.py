@@ -111,6 +111,7 @@ def add(value: int, **query: Query):
         user = os.getenv("USER")
         for person in people:
             instance = session.exec(select(Person).where(Person.email == person["email"])).first()
-            add_movement(session, instance, value, user)
+            if instance is not None:
+                add_movement(session, instance, value, user)
         session.commit()
 

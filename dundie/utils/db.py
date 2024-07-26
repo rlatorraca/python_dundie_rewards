@@ -1,3 +1,4 @@
+from decimal import Decimal
 from typing import Optional
 
 from sqlmodel import Session, select
@@ -74,7 +75,7 @@ def add_movement(session: Session, instance: Person, value: int, actor: Optional
     movements = session.exec(select(Movement).where(Movement.person == instance))
 
     # Sum all movements values for this instance of Person
-    total = sum([mov.value for mov in movements])
+    total = sum([mov.value for mov in movements], Decimal(0))
 
     # Get current Balance
     existing_balance = session.exec(select(Balance).where(Balance.person == instance)).first()

@@ -43,7 +43,6 @@ def test_add_movement():
         assert jim.balance.value == 470.00
 
 
-
 @pytest.mark.unit
 def test_add_balance_for_dept():
     load(PEOPLE_FILE)
@@ -54,7 +53,6 @@ def test_add_balance_for_dept():
     modified = read(dept="Sales")
     for index, person in enumerate(modified):
         assert person["balance"] == original[index]["balance"] + 100
-
 
 
 @pytest.mark.unit

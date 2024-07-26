@@ -11,3 +11,5 @@ ROOT_PATH = os.path.dirname(__file__)
 # DATABASE_PATH = os.path.join(ROOT_PATH, "..", "assets", "database.json")
 DATABASE_PATH = os.path.join(ROOT_PATH, "..", "assets", "database.db")
 SQL_CONN_STRING = f"sqlite:///{DATABASE_PATH}"
+
+API_BASE_URL = "https://economia.awesomeapi.com.br/json/last/USD-{currency}"

@@ -1,6 +1,7 @@
 import pytest
 
 from dundie.core import load
+
 from .constants import PEOPLE_FILE
 
 
@@ -17,4 +18,3 @@ def test_load_positive_first_name_like_Zachary(request):
     """Test Dundie/core.load() function"""
 
     assert load(PEOPLE_FILE)[0]["name"] == "Zachary Bowman"
-

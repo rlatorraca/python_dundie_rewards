@@ -1,10 +1,10 @@
-from unittest.mock import Mock
 import pytest
 from sqlmodel import Session, select
 
 from dundie.database import get_session
 from dundie.models import InvalidEmailError, Person
 from dundie.utils.db import add_movement, add_person
+
 
 @pytest.mark.unit
 @pytest.mark.high
@@ -26,12 +26,8 @@ def test_commit_to_database():
     session.add(Person(**data))
     session.commit()
 
-    assert (
-        session.exec(select(Person).where(Person.email == data["email"]))
-        .first()
-        .email
-        == data["email"]
-    )
+    assert session.exec(select(Person).where(Person.email == data["email"])).first().email == data["email"]
+
 
 @pytest.mark.unit
 @pytest.mark.high
@@ -53,17 +49,18 @@ def test_add_person_for_the_first_time():
     assert len(person.movement) > 0
     assert person.movement[0].value == 500
 
+
 @pytest.mark.unit
 @pytest.mark.high
 def test_negative_add_person_invalid_email():
-    '''
+    """
     with pytest.raises(ValueError):
         add_person({}, ".@bla", {})
-    '''
-    with get_session() as session:
-        with pytest.raises(InvalidEmailError):
-            add_person(Session, Person(email=".@bla"))
-            # add_person(mock_session, person_instance)
+    """
+
+    with pytest.raises(InvalidEmailError):
+        add_person(Session, Person(email=".@bla"))
+        # add_person(mock_session, person_instance)
 
 
 @pytest.mark.unit

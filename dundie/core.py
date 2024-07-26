@@ -3,17 +3,19 @@
 import os
 from csv import reader
 from typing import Any, Dict, List
-from sqlmodel import SQLModel, select
+
+from sqlmodel import select
+
 from dundie.database import get_session
-from dundie.models import  Person
+from dundie.models import Person
 from dundie.settings import DATEFORMAT
 from dundie.utils.db import add_movement, add_person
+from dundie.utils.exchange import get_rates
 from dundie.utils.log import get_logger
 
 log = get_logger()
 Query = Dict[str, Any]
 ResultDict = List[Dict[str, Any]]
-
 
 
 def load(filepath):
@@ -37,18 +39,17 @@ def load(filepath):
         raise e
 
     people = []
-    headers = ["name", "dept", "role", "email"]
+    headers = ["name", "dept", "role", "email", "currency"]
     with get_session() as session:
         for line in csv_data:
             person_data = dict(zip(headers, [item.strip() for item in line]))
             instance = Person(**person_data)
             person, created = add_person(session, instance)
-            print(f"Person Antes: {person}")
             return_data = person.model_dump()
             # print(f"Return_data Antes: {return_data}")
             people.append(return_data)
             # print(f"Return_data Depois append: {return_data}")
-            return_data.pop('id', None)
+            return_data.pop("id", None)
             # print(f"Return_data Depois pop id: {return_data}")
             return_data["created"] = created
             # print(f"Return_data Depois created id: {return_data}")
@@ -56,7 +57,6 @@ def load(filepath):
         session.commit()
 
     return people
-
 
 
 def read(**query):
@@ -76,20 +76,27 @@ def read(**query):
         sql = sql.where(*query_statements)  # WHERE ...
 
     with get_session() as session:
+        # getll all currencies ["BRL", "USD", "EUR", "CAD"]
+        currencies = session.exec(
+                select(Person.currency).distinct(Person.currency)
+            )
+        rates = get_rates(currencies)
+
         results = session.exec(sql)
         for person in results:
             balance_value = person.balance.value if person.balance else None
             last_movement_date = person.movement[-1].date.strftime(DATEFORMAT) if person.movement else None
+            total = rates[person.currency].value * person.balance.value
             return_data.append(
                 {
                     "email": person.email,
                     "balance": balance_value,
                     "last_movement": last_movement_date,
                     **person.model_dump(exclude={"id"}),
+                    **{"value": total},
                 }
             )
     return return_data
-
 
 
 def add(value: int, **query: Query):
@@ -103,11 +110,6 @@ def add(value: int, **query: Query):
     with get_session() as session:
         user = os.getenv("USER")
         for person in people:
-            instance = session.exec(
-                select(Person).where(Person.email == person["email"])
-            ).first()
+            instance = session.exec(select(Person).where(Person.email == person["email"])).first()
             add_movement(session, instance, value, user)
         session.commit()
-
-
-

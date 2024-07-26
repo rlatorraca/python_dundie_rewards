@@ -27,10 +27,11 @@ def add_person(session: Session, instance: Person):
         send_email(EMAIL_FROM, instance.email, "Your dundie password", password)
         return instance, created
     else:
-        existing.dept = instance.dept
-        existing.role = instance.role
-        existing.currency = instance.currency
-        session.add(existing)
+        if existing is not None:
+            existing.dept = instance.dept
+            existing.role = instance.role
+            existing.currency = instance.currency
+            session.add(existing)
         return instance, created
 
 

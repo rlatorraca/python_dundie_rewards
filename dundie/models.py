@@ -44,7 +44,7 @@ class Person(SQLModel, table=True):
 class Balance(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True, index=True)
     person_id: int = Field(foreign_key="person.id")
-    person: Person
+    # person: Person
     value: Annotated[Decimal, Field(default=0, decimal_places=2)]
 
     person: Person = Relationship(back_populates="balance")

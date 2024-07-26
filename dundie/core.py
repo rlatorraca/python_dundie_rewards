@@ -2,13 +2,20 @@
 
 import os
 from csv import reader
+from typing import Any, Dict, List
 
-from dundie.database import add_movement, add_person, commit, connect
+from sqlmodel import select
+
+from dundie.database import get_session
+from dundie.models import Person
+from dundie.settings import DATEFORMAT
+from dundie.utils.db import add_movement, add_person
+from dundie.utils.exchange import get_rates
 from dundie.utils.log import get_logger
 
 log = get_logger()
-
-lines = []
+Query = Dict[str, Any]
+ResultDict = List[Dict[str, Any]]
 
 
 def load(filepath):
@@ -31,21 +38,24 @@ def load(filepath):
         log.error(f"An error occurred: {e}")
         raise e
 
-    db = connect()
     people = []
-    headers = ["name", "dept", "role", "email"]
-    for line in csv_data:
-        person_data = dict(zip(headers, [item.strip() for item in line]))
+    headers = ["name", "dept", "role", "email", "currency"]
+    with get_session() as session:
+        for line in csv_data:
+            person_data = dict(zip(headers, [item.strip() for item in line]))
+            instance = Person(**person_data)
+            person, created = add_person(session, instance)
+            return_data = person.model_dump()
+            # print(f"Return_data Antes: {return_data}")
+            people.append(return_data)
+            # print(f"Return_data Depois append: {return_data}")
+            return_data.pop("id", None)
+            # print(f"Return_data Depois pop id: {return_data}")
+            return_data["created"] = created
+            # print(f"Return_data Depois created id: {return_data}")
 
-        pk = person_data.pop("email")
-        person, created = add_person(db, pk, person_data)
+        session.commit()
 
-        return_data = person.copy()
-        return_data["created"] = created
-        return_data["email"] = pk
-        people.append(return_data)
-
-    commit(db)
     return people
 
 
@@ -53,39 +63,52 @@ def read(**query):
     """Read data from db and filters using query
     read(email="joe@doe.com")
     """
-    db = connect()
+    query = {k: v for k, v in query.items() if v is not None}
     return_data = []
-    for pk, data in db["people"].items():
 
-        dept = query.get("dept")
-        if dept and dept != data["dept"]:  # Check by DEPT (is in the database)
-            continue
+    query_statements = []
+    if "dept" in query:
+        query_statements.append(Person.dept == query["dept"])
+    if "email" in query:
+        query_statements.append(Person.email == query["email"])
+    sql = select(Person)  # SELECT FROM PERSON
+    if query_statements:
+        sql = sql.where(*query_statements)  # WHERE ...
 
-        # WALRUS / Assignment Expression - a partir do python 3.8
-        if (email := query.get("email")) and email != pk:  # Check by EMAIL (is in the database)
-            continue
+    with get_session() as session:
+        # getll all currencies ["BRL", "USD", "EUR", "CAD"]
+        currencies = session.exec(select(Person.currency).distinct(Person.currency))
+        rates = get_rates(currencies)
 
-        return_data.append(
-            {
-                "email": pk,
-                "balance": db["balance"][pk],
-                "last_movement": db["movement"][pk][-1]["date"],
-                **data,
-            }
-        )
-
+        results = session.exec(sql)
+        for person in results:
+            balance_value = person.balance.value if person.balance else None
+            last_movement_date = person.movement[-1].date.strftime(DATEFORMAT) if person.movement else None
+            total = rates[person.currency].value * person.balance.value
+            return_data.append(
+                {
+                    "email": person.email,
+                    "balance": balance_value,
+                    "last_movement": last_movement_date,
+                    **person.model_dump(exclude={"id"}),
+                    **{"value": total},
+                }
+            )
     return return_data
 
 
-def add(value, **query):
+def add(value: int, **query: Query):
     """Add value to each record on query"""
+    query = {k: v for k, v in query.items() if v is not None}
     people = read(**query)
 
     if not people:
         raise RuntimeError("Not Found")
 
-    db = connect()
-    user = os.getenv("USER")
-    for person in people:
-        add_movement(db, person["email"], value, user)
-    commit(db)
+    with get_session() as session:
+        user = os.getenv("USER")
+        for person in people:
+            instance = session.exec(select(Person).where(Person.email == person["email"])).first()
+            if instance is not None:
+                add_movement(session, instance, value, user)
+        session.commit()

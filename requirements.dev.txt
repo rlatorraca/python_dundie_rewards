@@ -14,6 +14,14 @@ isort  # manager imports
 # User DOCs
 mkdocs
 
+# typing
+mypy
+types-setuptools
+
+# Build project
+wheel
+twine  # isntall into testpypi / pypi
+
 # Install project as editable
 -e .
 

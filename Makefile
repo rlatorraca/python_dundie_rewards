@@ -6,7 +6,7 @@
 
 # @ => don´t show command on the screen
 install:
-	@echo "Installind Dundie into Dev Environment"
+	@echo "Installing Dundie into Dev Environment..."
 	@.venv/bin/python -m pip install -e '.[dev]'
 
 uninstall:

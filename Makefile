@@ -7,7 +7,7 @@
 # @ => don´t show command on the screen
 install:
 	@echo "Installing Dundie into Dev Environment..."
-	@.venv/bin/python -m pip install -e '.[dev]'
+	@.venv/bin/python -m pip install -e '.[dev, test]'
 
 uninstall:
 	@.venv/bin/python -m pip uninstall dundie
@@ -31,14 +31,18 @@ fmt-apply:
 
 test:
 # @.venv/bin/pytest -vv -s --forked
-	@.venv/bin/pytest -s --forked
+	@.venv/bin/pytest -s --forked --cov=dundie
+	@.venv/bin/coverage xml
+	@.venv/bin/coverage html
 
 testci:
 	@.venv/bin/pytest -vv --forked --junitxml=test-result.xml
 
 watch:
 # @.venv/bin/ptw --  -vv -s  tests/ integration/
-	@ls **/*.py | entr pytest --forked
+	@ls **/*.py | entr pytest --forked --cov=dundie
+	@.venv/bin/coverage xml
+	@.venv/bin/coverage html
 
 docs:
 	@mkdocs build --clean

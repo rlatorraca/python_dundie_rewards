@@ -1,8 +1,9 @@
 pytest
-pytest-forked  # All tests are become isolated
+pytest-forked   # All tests are become isolated
 pytest-xdist
 pytest-faker
-
+pytest-cov      # This plugin produces tests coverage reports.
+coverage
 
 # Code Quality
 flake8

@@ -23,7 +23,7 @@ wheel
 twine  # isntall into testpypi / pypi
 
 # Install project as editable
--e .
+# -e .
 
 
 # Build project

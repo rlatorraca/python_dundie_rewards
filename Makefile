@@ -1,8 +1,11 @@
 #Makefile
 
 # Avoid create extra files (used as automization for a python app)
-.PHONY: install uninstall virtualenv ipython lint fmt-check fmt-apply test testci watch docs \
+.PHONY: pre_build install uninstall virtualenv ipython lint fmt-check fmt-apply test testci watch docs \
 	docs-serve clean build twine-upload
+
+pre_build:
+	@python pre_build.py
 
 # @ => don´t show command on the screen
 install:
@@ -13,7 +16,7 @@ uninstall:
 	@.venv/bin/python -m pip uninstall dundie
 
 virtualenv:
-	@.venv/bin/python -m pip -m venv .venv
+	@python -m venv .venv
 
 ipython:
 	@.venv/bin/ipython

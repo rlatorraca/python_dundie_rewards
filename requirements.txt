@@ -1,9 +1,8 @@
-click       # Line-command interfaces
-rich        # line-command color formating
-rich_click      # rich extension (better output)
-setuptools  # pkg_resources
-pydantic    # Serialization/Deserialization library
-sqlmodel    # library for interacting with SQL databases from Python cod
-alembic     # lightweight database migration tool for usage with the SQLAlchemy DB
-            #     $ alembic init migrations
-httpx       # fully featured HTTP client for Python 3
+click
+rich
+rich-click
+pydantic
+sqlalchemy
+sqlmodel
+alembic
+httpx
